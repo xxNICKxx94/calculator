@@ -30,6 +30,7 @@ function is_valid_user_input($first_operand, $operator, $second_operand): bool
         case '/':
         case ':':
         case '*':
+        case '^':
             break;
         default:
             $error_message = $error_message . '- Expected operator to be a valid math operator, ' . $operator . ' given' . PHP_EOL;
@@ -50,6 +51,9 @@ function is_valid_user_input($first_operand, $operator, $second_operand): bool
 
 function calculate($first_operand, $operator, $second_operand): float
 {
+    $i=0;
+    $result = 1;
+    
     switch ($operator) {
         case '+':
             $result = $first_operand + $second_operand;
@@ -68,25 +72,29 @@ function calculate($first_operand, $operator, $second_operand): float
             return $result;
         case ':':
             $result = $first_operand / $second_operand;
+        case '^':
+            if ($second_operand === 0) {
+                $result = 1;
+            }   
+            
+            if ($second_operand === 1) {
+                $result = $first_operand;
+            }         
+            
+            if ($second_operand < 0) {
+                for ($i = abs($second_operand); $i > 0; $i-- ) {
+                    $result = ($result * $first_operand);
+                }
+
+                $result = 1 / $result;
+            }
+            for ($i = $second_operand; $i > 0; $i-- ) {
+                $result = $result * $first_operand;
+            }
+
             return $result;
     }
 }
 
 run();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
