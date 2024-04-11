@@ -25,7 +25,6 @@ function simple_expression()
     $first_operand = readline('Please, type in the first operand:');
     $operator = readline('Please, type in the operator: ');
     $second_operand = readline('Please, type in the second operand: ');
-    $result = 0;
 
     $is_valid_user_input = is_valid_user_input($first_operand, $operator, $second_operand);
 
@@ -54,24 +53,24 @@ function is_valid_user_input($first_operand, $operator, $second_operand): bool
             break;
         default:
             $error_message = $error_message . '- Expected operator to be a valid math operator, ' . $operator . ' given' . PHP_EOL;
-            $is_valid = true;
+            $is_valid = false;
     }
 
     if (!is_numeric($second_operand)) {
         $is_valid = false;
         $error_message = $error_message . '- Expected second operand value to be a valid number ' . $second_operand . ' given' . PHP_EOL;
     }
-     
+
     if (!$is_valid) {
         echo $error_message;
     }
-           
+
     return $is_valid;
 }
 
 function calculate($first_operand, $operator, $second_operand): float
 {
-    $result = 0;
+    $result = 1;
     
     switch ($operator) {
         case '+':
@@ -94,7 +93,7 @@ function calculate($first_operand, $operator, $second_operand): float
             return $result;
         case '^':
             if ($second_operand === 0) {
-                $result = 1;
+                $result;
             }   
             
             if ($second_operand === 1) {
@@ -161,7 +160,7 @@ function is_valid_math_expression($math_expression)
         echo $error_message;
         return $is_valid;
     }
-  
+
     return $is_valid;
 }
 
@@ -238,4 +237,3 @@ function recount_index($old_order)
     $new_order = array_values($old_order);
     return $new_order;
 }
-
